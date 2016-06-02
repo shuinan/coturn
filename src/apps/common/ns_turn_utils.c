@@ -787,6 +787,17 @@ void tm_print_func(void) {
   pthread_mutex_unlock(&tm);
 } 
 
+extern "C" char* current_time(void)
+char* current_time(void) {
+	static char cur_time[126];
+	
+	time_t lt1 = time(NULL);
+	struct tm *newtime = localtime(&lt1);
+	strftime( cur_time, 128, "%Y-%m-%d %T", newtime);
+	
+	return cur_time;
+}
+
 extern "C" void *turn_malloc_func(size_t sz, const char* function, int line);
 void *turn_malloc_func(size_t sz, const char* function, int line) {
 

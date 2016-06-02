@@ -3574,6 +3574,13 @@ void turn_report_allocation_delete(void *a)
 				ioa_engine_handle e = turn_server_get_engine(server);
 				if(e && e->verbose) {
 					TURN_LOG_FUNC(TURN_LOG_LEVEL_INFO,"session %018llu: delete: realm=<%s>, username=<%s>\n", (unsigned long long)ss->id, (char*)ss->realm_options.name, (char*)ss->username);
+
+					// print statistics info. add cur_time by rao at 2016.6.1			
+					turn_time_t ct = get_turn_server_time(server);					
+					TURN_LOG_FUNC(TURN_LOG_LEVEL_INFO,"network_statistics: session=%018llu, realm=%s, username=%s, startTime=%u, endTime=%u, duration=%u, receivedBytes=%llu, sentBytes=%llu, totalBytes=%llu\n",
+						(unsigned long long)ss->id, (char*)ss->realm_options.name, (char*)ss->username,
+						ss->start_time,  ct, (ct - ss->start_time),
+						(unsigned long long)ss->t_received_bytes, (unsigned long long)ss->t_sent_bytes, (unsigned long long)(ss->t_received_bytes + ss->t_sent_bytes) );
 				}
 #if !defined(TURN_NO_HIREDIS)
 				{
