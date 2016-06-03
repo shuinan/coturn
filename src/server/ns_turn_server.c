@@ -4412,6 +4412,7 @@ static int read_client_connection(turn_turnserver *server,
 		return -1;
 	}
 
+	//TURN_LOG_FUNC(TURN_LOG_LEVEL_INFO, "count_usage: %d, datalen: %u\n", count_usage, (u32bits)ioa_network_buffer_get_size(in_buffer->nbh));
 	if(count_usage) {
 		++(ss->received_packets);
 		ss->received_bytes += (u32bits)ioa_network_buffer_get_size(in_buffer->nbh);

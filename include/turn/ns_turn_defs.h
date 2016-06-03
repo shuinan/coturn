@@ -115,7 +115,10 @@ static inline u64bits _ioa_ntoh64(u64bits v)
 #undef TURN_LOG_FUNC
 #endif
 
-#define TURN_LOG_FUNC(level, ...) printf (__VA_ARGS__)
+//#define TURN_LOG_FUNC(level, ...) printf (__VA_ARGS__)
+#define TURN_LOG_FUNC(level, ...)  printf("%s ", current_time()); printf (__VA_ARGS__);
+//#define TURN_LOG_FUNC(level, fmt, ...) do { printf("%s %s:%d(%s): "fmt, current_time(), __FILE__,__LINE__,__FUNCTION__,  ##__VA_ARGS__); }while(0)
+	char* current_time(void);
 
   void tm_print_func(void);
   void *turn_malloc_func(size_t sz, const char* function, int line);
